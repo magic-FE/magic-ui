@@ -1,0 +1,20 @@
+{
+  "presets":[
+    "es2015",
+    "stage-0",
+    "react"
+  ],
+  "plugins":[
+    "transform-runtime"
+  ],
+  "env": {
+      "production": {
+        "plugins":[
+          "transform-react-constant-elements",
+          "transform-react-remove-prop-types",
+          "transform-react-pure-class-to-function"
+        ]
+      }
+    }
+}
+
