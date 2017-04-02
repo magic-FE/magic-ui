@@ -1,4 +1,4 @@
-const prefixCls = 'magicd';
+export const prefixCls = 'magicd';
 
 export default prefixCls;
 

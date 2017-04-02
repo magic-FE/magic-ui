@@ -1,3 +1,6 @@
 import './base.less';
+/* eslint-disable import/prefer-default-export */
 
-export Button from './Button';
+export { default as Button } from './Button';
+
+/* eslint-disable import/prefer-default-export */

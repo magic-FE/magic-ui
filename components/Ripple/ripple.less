@@ -1,30 +1,25 @@
 //
-// Ripple
+// Wave
 // --------------------------------------------------
 @import '../variable';
-
-.@{prefix-cls}{
-  &-ripple-wrapper{
-    overflow: hidden;
-    z-index: 1;
-    position: fixed;
-  }
+@{prefix-cls}{
   &-ripple{
+    border-radius: 50%;
+    opacity: 0.66;
     position: absolute;
-    background-color: currentColor;
-    transform-origin: 50% 50%;
-    left: 0;
+    user-select: none;
+    background: currentColor;
+  }
+  &-ripple-wrapper{
+    z-index: 1;
+    position: absolute;
     top: 0;
-    transform: scale(0);
-    opacity: 0.5
-  }
-  &-ripple-end&-ripple{
-    transform: scale(1);
-    opacity: 0
-  }
-  &-ripple-active&-ripple{
-    transation-duration:.8s;
-    transation-property: transform, opacity;
-    transation-timing-function: ease-out;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    border-radius: inherit;
+    margin: -1px;
   }
 }
+

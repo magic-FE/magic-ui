@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import classnames from 'classnames';
 import { classnamesPrefix } from '../_utils_/prefix';
+import RippleEnhance from '../Ripple';
 import './button.less';
 
 const noop = () => {};
@@ -25,15 +26,19 @@ class Button extends Component {
     ]),
     ghost: PropTypes.bool,
     disabled: PropTypes.bool,
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
+    onMouseDown: PropTypes.func,
+    onMouseUp: PropTypes.func
   }
   static defaultProps = {
     type: 'default',
     children: '',
-    size: '',
+    size: 'lg',
     ghost: false,
     disabled: false,
-    onClick: noop
+    onClick: noop,
+    onMouseDown: noop,
+    onMouseUp: noop
   }
   render() {
     const {
@@ -42,7 +47,9 @@ class Button extends Component {
       size,
       ghost,
       disabled,
-      onClick
+      onClick,
+      onMouseDown,
+      onMouseUp
     } = this.props;
     const cls = classnames(
       'btn',
@@ -55,11 +62,12 @@ class Button extends Component {
         className={classnamesPrefix(cls)}
         disabled={disabled}
         onClick={disabled ? null : onClick}
+        onMouseDown={onMouseDown}
+        onMouseUp={onMouseUp}
       >
         {children}
       </button>
     );
   }
 }
-
-export default Button;
+export default RippleEnhance()(Button);

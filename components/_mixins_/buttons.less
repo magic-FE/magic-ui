@@ -41,8 +41,9 @@
     color: @background;
     background-color: @inverse;
   }
-  &.@{prefix-cls}-btn-ghost{
+  &@{prefix-cls}-btn-ghost{
     color: @background;
+    border-color: currentColor;
     &:hover,
     &.hover,
     &:focus,
@@ -50,6 +51,7 @@
     &.active,
     .open > .dropdown-toggle& {
       color: @hover-background;
+      border-color: currentColor;
     }
   }
 }

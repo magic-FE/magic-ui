@@ -25,7 +25,7 @@ module.exports = (paths) => {
       app: App,
       vendors: Vendors
     },
-    devtool: isDev ? 'eval' : 'cheap-source-map',
+    devtool: isDev ? 'source-map' : false,
     output: {
       filename: '[name].[hash:8].js',
       path: paths.dist(),

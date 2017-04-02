@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Button } from 'magicd';
+import { Button as Btn } from 'magicd';
 
 const containerStyle = {
   padding: '20px',
@@ -13,16 +13,15 @@ class App extends React.Component {
   render() {
     return (
       <div style={containerStyle}>
-        <Button >default</Button>
-        <Button type="primary" >primary</Button>
-        <Button type="info" >info</Button>
-        <Button type="info" >info</Button>
-        <Button type="danger" >default</Button>
-        <Button type="warning" >warning</Button>
-        <Button type="inverse" >inverse</Button>
-        <Button type="success" >success</Button>
-        <Button ghost >ghost</Button>
-        <Button disabled >disabled</Button>
+        <Btn >default</Btn>
+        <Btn type="primary">primary</Btn>
+        <Btn type="info" rippleCenter>info</Btn>
+        <Btn type="danger" rippleMultiple={false}>danger</Btn>
+        <Btn type="warning">warning</Btn>
+        <Btn type="inverse">inverse</Btn>
+        <Btn type="success">success</Btn>
+        <Btn ghost type="inverse">ghost</Btn>
+        <Btn disabled >disabled</Btn>
       </div>
     );
   }
