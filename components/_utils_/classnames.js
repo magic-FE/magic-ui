@@ -9,7 +9,7 @@ const classNames = (prefix = '') => (...prefixClassses) => (...noPrefixClasses) 
     if (argType === 'string' || argType === 'number') {
       classes.push(`${prefix}${arg}`);
     } else if (Array.isArray(arg)) {
-      classes.push(classNames(...arg));
+      classes.push(classNames(prefix)(...arg)());
     } else if (argType === 'object') {
       for (const key in arg) { // eslint-disable-line
         if (hasOwn.call(arg, key) && arg[key]) {
