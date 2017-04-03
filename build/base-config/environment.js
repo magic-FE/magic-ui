@@ -14,5 +14,6 @@ module.exports = {
   isDev: NODE_ENV === 'development',
   isProd: NODE_ENV === 'production',
   isTest: NODE_ENV === 'test',
-  config: Object.assign(envConfigs.defaults, envConfigs[NODE_ENV] || {})
+  config: Object.assign(envConfigs.defaults, envConfigs[NODE_ENV] || {}),
+  __PREFIX__: JSON.stringify('magicd-')
 };

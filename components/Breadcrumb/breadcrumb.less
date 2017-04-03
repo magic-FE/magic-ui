@@ -1,0 +1,22 @@
+@import '../variable';
+@{prefix-cls} {
+  &-breadcrumb {
+    padding: @breadcrumb-padding-vertical @breadcrumb-padding-horizontal;
+    margin-bottom: @line-height-computed;
+    list-style: none;
+    background-color: @breadcrumb-bg;
+    border-radius: @border-radius-base;
+    >li {
+      display: inline-block;
+      +li:before {
+        margin: 0 3px;
+        content: attr(data-breadcrumb-separator);
+        padding: 0 5px;
+        color: @breadcrumb-color;
+      }
+    }
+    >li:last-child {
+      color: @breadcrumb-active-color;
+    }
+  }
+}

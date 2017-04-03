@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import 'web-animations-js';
-import { prefixCls } from '../_utils_/prefix';
 import './ripple.less';
 
 class Ripple extends Component {
@@ -46,8 +45,8 @@ class Ripple extends Component {
     const { left, top, width } = this.props;
     const style = { left: `${left}px`, top: `${top}px`, width: `${width}px`, height: `${width}px` };
     return (
-      <span onMouseUp={this.up} className={`${prefixCls}-ripple-wrapper`} ref={(node) => { this.wrapElement = node; }}>
-        <span style={style} ref={(node) => { this.element = node; }} className={`${prefixCls}-ripple`} />
+      <span onMouseUp={this.up} className={`${__PREFIX__}ripple-wrapper`} ref={(node) => { this.wrapElement = node; }}>
+        <span style={style} ref={(node) => { this.element = node; }} className={`${__PREFIX__}ripple`} />
       </span>
     );
   }

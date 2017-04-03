@@ -1,30 +1,15 @@
 import React from 'react';
-import { render } from 'react-dom';
-import { Button as Btn } from 'magicd';
+import { render, unmountComponentAtNode } from 'react-dom';
+import Main from './App';
 
-const containerStyle = {
-  padding: '20px',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-around'
-};
+const MOUNT_NODE = document.querySelector('#root');
 
-class App extends React.Component {
-  render() {
-    return (
-      <div style={containerStyle}>
-        <Btn >default</Btn>
-        <Btn type="primary">primary</Btn>
-        <Btn type="info" rippleCenter>info</Btn>
-        <Btn type="danger" rippleMultiple={false}>danger</Btn>
-        <Btn type="warning">warning</Btn>
-        <Btn type="inverse">inverse</Btn>
-        <Btn type="success" ripple={false} >success</Btn>
-        <Btn ghost type="inverse">ghost</Btn>
-        <Btn disabled >disabled</Btn>
-      </div>
-    );
-  }
+if (module.hot) {
+  module.hot.accept('./App', () => {
+    const App = require('./App').default;
+    unmountComponentAtNode(MOUNT_NODE);
+    render(<App />, MOUNT_NODE);
+  });
 }
 
-render(<App />, document.querySelector('#root'));
+render(<Main />, MOUNT_NODE);

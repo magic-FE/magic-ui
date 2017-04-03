@@ -17,9 +17,9 @@ export default (options = {}) => {
     spread,
     multiple
   } = {
-      ...defaultOptions,
-      ...options
-    };
+    ...defaultOptions,
+    ...options
+  };
   return WrapperComponent =>
     class RippleEnhance extends Component {
       static propTypes = {

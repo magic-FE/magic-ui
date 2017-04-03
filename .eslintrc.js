@@ -14,7 +14,8 @@ const eslintrc = {
     "isDev": false,
     "isTest": false,
     "isProd": false,
-    "window": false
+    "window": false,
+    "__PREFIX__": false
   },
   "parser": "babel-eslint",
   "rules": {
