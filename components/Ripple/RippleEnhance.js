@@ -9,27 +9,37 @@ const defaultOptions = {
   multiple: true
 };
 
+const noop = () => { };
+
 export default (options = {}) => {
   const {
-    center, // eslint-disable-line
-    spread, // eslint-disable-line
-    multiple // eslint-disable-line
+    center,
+    spread,
+    multiple
   } = {
-    ...defaultOptions,
-    ...options
-  };
+      ...defaultOptions,
+      ...options
+    };
   return WrapperComponent =>
     class RippleEnhance extends Component {
       static propTypes = {
         rippleCenter: PropTypes.bool,
         rippleSpread: PropTypes.number,
         rippleMultiple: PropTypes.bool,
-        children: PropTypes.any.isRequired
+        children: PropTypes.any.isRequired,
+        onMouseDown: PropTypes.func,
+        disabled: PropTypes.bool,
+        style: PropTypes.object,
+        ripple: PropTypes.bool
       }
       static defaultProps = {
         rippleCenter: center,
         rippleSpread: spread,
-        rippleMultiple: multiple
+        rippleMultiple: multiple,
+        onMouseDown: noop,
+        disabled: false,
+        style: {},
+        ripple: true
       }
       constructor(props) {
         super(props);
@@ -37,6 +47,7 @@ export default (options = {}) => {
           rippleRectProps: {}
         };
       }
+      rippleNodes = {}
       getWrapperDescriptor = () => ReactDOM.findDOMNode(this).getBoundingClientRect() // eslint-disable-line
       getRippleDescriptor = ({ x, y }) => {
         const { left, top, height, width } = this.getWrapperDescriptor();
@@ -62,6 +73,13 @@ export default (options = {}) => {
         const key = (this.props.rippleMultiple || noRipplesActive)
           ? this.getNextKey()
           : this.getLastKey();
+        if (
+          this.rippleNodes[key] && !this.props.rippleMultiple
+        ) {
+          // if singleRipple, we should restart the animate, and send the new rectProps
+          this.rippleNodes[key].animateScale(clientRect);
+          return; // we should stop setState(re-render) in this component;
+        }
         this.setState({
           rippleRectProps: {
             ...rippleRectProps,
@@ -70,34 +88,46 @@ export default (options = {}) => {
         });
       }
       removeFromState = (key) => {
-        const rippleRectProps = [...this.state.rippleRectProps];
+        const rippleRectProps = { ...this.state.rippleRectProps };
         delete rippleRectProps[key];
+        delete this.rippleNodes[key];
         this.setState({
           rippleRectProps
         });
       }
       renderWave = (key, clientRect) => (<Ripple
         key={key}
+        ref={(node) => { this.rippleNodes[key] = node; }}
         indexKey={key}
-        onfinish={this.props.rippleMultiple ? 0 : this.removeFromState}
         {...clientRect}
+        onfinish={this.removeFromState}
       />);
       handleOnMouseDown = (e) => {
-        this.addRipples(this.getRippleDescriptor(getMousePosition(e)));
+        const { ripple } = this.props;
+        if (this.props.disabled) return;
+        if (typeof this.props.onMouseDown === 'function') this.props.onMouseDown(e);
+        if (ripple) this.addRipples(this.getRippleDescriptor(getMousePosition(e)));
       }
       render() {
         const { rippleRectProps } = this.state;
         const ripples = Object.keys(rippleRectProps).map(
           key => this.renderWave(key, rippleRectProps[key])
         );
-        const { rippleCenter, rippleSpread, rippleMultiple, children, ...otherProps } = this.props;
+        const {
+           rippleCenter,
+           rippleSpread,
+           rippleMultiple,
+           children,
+           style,
+           ...otherProps } = this.props;
         return (
           <WrapperComponent
-            onMouseDown={this.handleOnMouseDown}
             {...otherProps}
+            onMouseDown={this.handleOnMouseDown}
+            style={Object.assign({}, { position: 'relative' }, { style })}
           >
-            {ripples}
             {children}
+            {ripples}
           </WrapperComponent>
         );
       }

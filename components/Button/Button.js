@@ -4,7 +4,7 @@ import { classnamesPrefix } from '../_utils_/prefix';
 import RippleEnhance from '../Ripple';
 import './button.less';
 
-const noop = () => {};
+const noop = () => { };
 
 class Button extends Component {
   static propTypes = {
@@ -28,7 +28,9 @@ class Button extends Component {
     disabled: PropTypes.bool,
     onClick: PropTypes.func,
     onMouseDown: PropTypes.func,
-    onMouseUp: PropTypes.func
+    onMouseUp: PropTypes.func,
+    style: PropTypes.object,
+    className: PropTypes.string
   }
   static defaultProps = {
     type: 'default',
@@ -38,7 +40,9 @@ class Button extends Component {
     disabled: false,
     onClick: noop,
     onMouseDown: noop,
-    onMouseUp: noop
+    onMouseUp: noop,
+    style: {},
+    className: ''
   }
   render() {
     const {
@@ -49,21 +53,24 @@ class Button extends Component {
       disabled,
       onClick,
       onMouseDown,
-      onMouseUp
+      onMouseUp,
+      style,
+      className
     } = this.props;
     const cls = classnames(
       'btn',
-      `btn-${type}`, { 'btn-ghost': ghost }, {
-        [`btn-${size}`]: !!size
-      }
+      `btn-${type}`,
+      { 'btn-ghost': ghost },
+      { [`btn-${size}`]: !!size }
     );
     return (
       <button
-        className={classnamesPrefix(cls)}
+        className={classnamesPrefix(cls, [className])}
         disabled={disabled}
         onClick={disabled ? null : onClick}
-        onMouseDown={onMouseDown}
-        onMouseUp={onMouseUp}
+        onMouseDown={disabled ? null : onMouseDown}
+        onMouseUp={disabled ? null : onMouseUp}
+        style={style}
       >
         {children}
       </button>

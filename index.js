@@ -19,7 +19,7 @@ class App extends React.Component {
         <Btn type="danger" rippleMultiple={false}>danger</Btn>
         <Btn type="warning">warning</Btn>
         <Btn type="inverse">inverse</Btn>
-        <Btn type="success">success</Btn>
+        <Btn type="success" ripple={false} >success</Btn>
         <Btn ghost type="inverse">ghost</Btn>
         <Btn disabled >disabled</Btn>
       </div>

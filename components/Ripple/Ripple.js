@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import 'web-animations-js';
 import { prefixCls } from '../_utils_/prefix';
 import './ripple.less';
 
@@ -11,7 +12,18 @@ class Ripple extends Component {
     indexKey: PropTypes.any.isRequired
   }
   componentDidMount() {
-    this.element.animate([
+    this.animateScale();
+  }
+  animateScale = ({ left, top } = { }) => {
+    if (this.scale) this.scale.cancel();
+    // because this.opacity is exist,so this is re-animate and we should cancel the opacity
+    // stop the remove action
+    if (this.opacity) this.opacity.cancel();
+    if (left && top) {
+      this.element.style.left = `${left}px`;
+      this.element.style.top = `${top}px`;
+    }
+    this.scale = this.element.animate([
         { transform: 'scale(0)' },
         { transform: 'scale(1)' }
     ], {
@@ -27,8 +39,7 @@ class Ripple extends Component {
       { opacity: 0 }
     ], { duration: 800, easing: 'cubic-bezier(.22,.67,.52,.92)', fill: 'forwards' });
     this.opacity.onfinish = () => {
-      if (typeof onfinish === 'function') return onfinish(indexKey);
-      return this.wrapElement.remove();
+      onfinish(indexKey);
     };
   }
   render() {

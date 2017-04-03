@@ -12,8 +12,22 @@ module.exports = () => {
   }, {
     test: /\.json$/,
     use: [{ loader: 'json-loader' }]
+  },{
+    test: /\.(css)$/,
+    use: [
+      {
+        loader: 'style-loader'
+      }, {
+        loader: 'css-loader',
+        options: {
+          minimize: isProd,
+          sourceMap: !isProd,
+          modules: true
+        }
+      }, 'postcss-loader'
+    ]
   }, {
-    test: /\.(css|less)$/,
+    test: /\.(less)$/,
     use: [
       {
         loader: 'style-loader'
