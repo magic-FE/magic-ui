@@ -11,7 +11,7 @@ module.exports = (paths) => {
   const plugins = [
     new webpack.DefinePlugin(env),
     new HtmlWebpackPlugin({
-      template: paths.root('index.html'),
+      template: paths.examples('index.html'),
       hash: false,
       // favicon: paths.src('static/favicon.ico'),
       filename: 'index.html',

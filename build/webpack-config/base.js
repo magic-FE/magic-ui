@@ -7,7 +7,7 @@ const envConfig = env.config;
 const pkg = require('../../package.json');
 
 module.exports = (paths) => {
-  const App = [paths.root('index.js')];
+  const App = [paths.examples('index.js')];
   const Vendors = envConfig.vendors.filter((dep) => {
     if (pkg.dependencies[dep]) return true;
     return debug(
@@ -22,8 +22,8 @@ module.exports = (paths) => {
   return {
     context: paths.root(),
     entry: {
-      app: App,
-      vendors: Vendors
+      app: App
+      // vendors: Vendors
     },
     devtool: isDev ? 'source-map' : false,
     output: {
