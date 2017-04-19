@@ -1,30 +1,24 @@
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
-import { Router, Route, hashHistory } from 'react-router';
-import Main from './App';
-import BreadcrumbWithRouter from './BreadcrumbWithRouter';
-import BreadcrumbWithRouterWithParam from './BreadcrumbWithParam';
+import { Router, hashHistory } from 'react-router';
+import allRoutes from './routes';
 
 const MOUNT_NODE = document.querySelector('#root');
-const renderfun = (App) => {
+const renderfun = (routes) => {
   render(
     <Router history={hashHistory} >
-      <Route path="/" component={App} breadcrumbLabel="首页" >
-        <Route path="breadWithRouter" component={BreadcrumbWithRouter} breadcrumbLabel="面包" >
-          <Route path=":id" component={BreadcrumbWithRouterWithParam} />
-        </Route>
-      </Route>
+      {routes}
     </Router>
     , MOUNT_NODE);
 };
 
 if (module.hot) {
-  module.hot.accept('./App', () => {
-    const App = require('./App').default;
+  module.hot.accept('./routes', () => {
+    const routes = require('./routes').default;
     unmountComponentAtNode(MOUNT_NODE);
-    renderfun(App);
+    renderfun(routes);
   });
 }
 
 
-renderfun(Main);
+renderfun(allRoutes);

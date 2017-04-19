@@ -28,7 +28,7 @@ const eslintrc = {
     "no-param-reassign": [0],
     "no-console": [0],
     "import/no-extraneous-dependencies": [2, {
-      "devDependencies": ["**/build/**/**", "**/tests/**/**", "**/bin/**", "./index.js"]
+      "devDependencies": ["**/examples/**/**"]
     }],
     "global-require": [0]
   }
